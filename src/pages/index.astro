@@ -1,6 +1,25 @@
 ---
 import '../styles/global.css';
 import { CATEGORIES, SITES, type PriceTag } from '../data/sites';
+import streams from '../data/streams.json';
+
+interface StreamItem {
+  title: string;
+  url: string;
+  date?: string;
+  summary?: string;
+}
+
+interface StreamSource {
+  id: string;
+  name: string;
+  home: string;
+  attribution: string;
+  items: StreamItem[];
+  fetchedAt: string | null;
+}
+
+const streamSources = (streams as { sources: StreamSource[] }).sources;
 
 const PRICE_CLASS: Record<PriceTag, string> = {
   免费: 'badge-free',
@@ -99,7 +118,47 @@ const byCategory = new Map(
           <p class="legal">
             仅聚合标题与链接，版权归原作者；VOA / LibriVox 内容属公共领域（VOA 摘要已署名）。
           </p>
-          <!-- 内容流渲染见 .scratch/english-hub/issues/05 -->
+          {
+            streamSources.map((src) => (
+              <div class="stream">
+                <div class="stream-head">
+                  <h3>
+                    <a href={src.home} target="_blank" rel="noopener noreferrer">
+                      {src.name}
+                    </a>
+                  </h3>
+                  <span class="attribution">
+                    {src.attribution}
+                    {src.fetchedAt &&
+                      ` · 更新于 ${new Date(src.fetchedAt).toLocaleString('zh-CN', {
+                        timeZone: 'Asia/Shanghai',
+                        hour12: false,
+                      })}`}
+                  </span>
+                </div>
+                {src.items.length > 0 ? (
+                  <ul>
+                    {src.items.map((item) => (
+                      <li>
+                        {item.date && <span class="date">{item.date}</span>}
+                        <a href={item.url} target="_blank" rel="noopener noreferrer">
+                          {item.title}
+                        </a>
+                        {item.summary && (
+                          <p class="summary">
+                            {item.summary}
+                            {item.summary.length >= 160 ? '…' : ''}
+                          </p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="empty">暂无内容 — 源暂时不可达，待下次构建恢复。</p>
+                )}
+              </div>
+            ))
+          }
         </section>
       </main>
 
