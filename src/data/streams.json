@@ -1,0 +1,63 @@
+{
+  "fetchedAt": "2026-09-19T15:34:21.665Z",
+  "errors": [
+    "voa-eg: fetch failed",
+    "voa-wats: fetch failed",
+    "bbc-6min: fetch failed"
+  ],
+  "sources": [
+    {
+      "id": "voa-eg",
+      "name": "VOA · Everyday Grammar",
+      "home": "https://learningenglish.voanews.com/",
+      "attribution": "公共领域 · 署名 VOA Learning English",
+      "items": [],
+      "fetchedAt": null
+    },
+    {
+      "id": "voa-wats",
+      "name": "VOA · Words and Their Stories",
+      "home": "https://learningenglish.voanews.com/",
+      "attribution": "公共领域 · 署名 VOA Learning English",
+      "items": [],
+      "fetchedAt": null
+    },
+    {
+      "id": "bbc-6min",
+      "name": "BBC · 6 Minute English",
+      "home": "https://www.bbc.co.uk/learningenglish/english/podcasts",
+      "attribution": "非商业引用 · 版权归 BBC",
+      "items": [],
+      "fetchedAt": null
+    },
+    {
+      "id": "librivox",
+      "name": "LibriVox · 最新有声书",
+      "home": "https://librivox.org/",
+      "attribution": "公共领域 · 音频可自由使用",
+      "items": [
+        {
+          "title": "Count of Monte Cristo",
+          "url": "https://librivox.org/the-count-of-monte-cristo-by-alexandre-dumas/"
+        },
+        {
+          "title": "Letters of Two Brides",
+          "url": "https://librivox.org/letters-of-two-brides-by-honore-de-balzac/"
+        },
+        {
+          "title": "Bleak House",
+          "url": "https://librivox.org/bleak-house-by-charles-dickens/"
+        },
+        {
+          "title": "Penguin Island",
+          "url": "https://librivox.org/penguin-island-by-anatole-france/"
+        },
+        {
+          "title": "This Side of Paradise",
+          "url": "https://librivox.org/this-side-of-paradise-by-f-scott-fitzgerald"
+        }
+      ],
+      "fetchedAt": "2026-09-19T15:34:21.664Z"
+    }
+  ]
+}
