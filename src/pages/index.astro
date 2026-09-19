@@ -1,4 +1,28 @@
 ---
+import '../styles/global.css';
+import { CATEGORIES, SITES, type PriceTag } from '../data/sites';
+
+const PRICE_CLASS: Record<PriceTag, string> = {
+  免费: 'badge-free',
+  Freemium: 'badge-freemium',
+  付费: 'badge-paid',
+};
+
+const INTEGRATION_LABEL = {
+  api: 'API',
+  rss: 'RSS',
+  iframe: '可嵌入',
+  'link-only': '外链',
+} as const;
+
+const buildDate = new Date().toLocaleString('zh-CN', {
+  timeZone: 'Asia/Shanghai',
+  hour12: false,
+});
+
+const byCategory = new Map(
+  CATEGORIES.map((c) => [c.id, SITES.filter((s) => s.category === c.id)]),
+);
 ---
 
 <!doctype html>
@@ -6,9 +30,103 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>英语学习导航</title>
+    <meta
+      name="description"
+      content="非商业英语学习资源导航：32 个精选站点分类整理，附每日更新的 VOA / BBC / LibriVox 内容流"
+    />
+    <title>英语学习导航 · English Learning Hub</title>
   </head>
   <body>
-    <p>脚手架占位页 — 卡片墙见 .scratch/english-hub/issues/03</p>
+    <div class="container">
+      <header>
+        <h1>英语学习导航</h1>
+        <p class="sub">English Learning Hub — 精选学习站点与每日内容流</p>
+        <p class="meta">页面生成于 {buildDate}（北京时间）</p>
+      </header>
+
+      <nav class="cats" aria-label="分类导航">
+        {CATEGORIES.map((c) => <a href={`#${c.id}`}>{c.label}</a>)}
+        <a href="#streams">今日内容流</a>
+      </nav>
+
+      <main>
+        {
+          CATEGORIES.map((c) => (
+            <section class="cat" id={c.id}>
+              <h2>
+                {c.label}
+                <span class="count">{byCategory.get(c.id)!.length} 站</span>
+              </h2>
+              <div class="cards">
+                {byCategory.get(c.id)!.map((site) => (
+                  <a
+                    class="card"
+                    href={site.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div class="card-head">
+                      <img
+                        class="card-favicon"
+                        src={site.favicon ?? site.faviconFallback}
+                        data-fallback={site.faviconFallback}
+                        alt=""
+                        width="20"
+                        height="20"
+                        loading="lazy"
+                      />
+                      <span class="card-name">{site.name}</span>
+                    </div>
+                    <div class="card-zh">{site.nameZh}</div>
+                    {site.notes && <p class="card-notes">{site.notes}</p>}
+                    <div class="card-badges">
+                      {site.tags.map((t) => (
+                        <span class={`badge ${PRICE_CLASS[t]}`}>{t}</span>
+                      ))}
+                      <span class="badge badge-int">
+                        {INTEGRATION_LABEL[site.integration]}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+
+        <section id="streams">
+          <h2>今日内容流</h2>
+          <p class="legal">
+            仅聚合标题与链接，版权归原作者；VOA / LibriVox 内容属公共领域（VOA 摘要已署名）。
+          </p>
+          <!-- 内容流渲染见 .scratch/english-hub/issues/05 -->
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          非商业项目 · 选站依据 docs/research/english-learning-sites.md
+          （2026-08 实测调研）· 站点名称与图标归原作者所有
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // favicon 加载失败时换兜底源，再失败则隐藏占位
+      for (const img of document.querySelectorAll<HTMLImageElement>(
+        'img.card-favicon',
+      )) {
+        const swap = () => {
+          const fb = img.dataset.fallback;
+          if (fb && !img.src.endsWith(fb)) {
+            img.src = fb;
+          } else {
+            img.style.visibility = 'hidden';
+          }
+        };
+        img.addEventListener('error', swap, { once: true });
+        if (img.complete && img.naturalWidth === 0) swap();
+      }
+    </script>
   </body>
 </html>
