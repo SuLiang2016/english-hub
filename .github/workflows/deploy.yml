@@ -29,7 +29,6 @@ jobs:
       - run: npm ci
       # CI 内实时拉取内容流源（美国 runner 可达 VOA/BBC）
       - run: npm run build
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
