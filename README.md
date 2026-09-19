@@ -8,10 +8,14 @@
 
 ```bash
 npm install
-npm run dev      # 本地开发 http://localhost:4321
-npm run build    # 产出 dist/
-npm run preview  # 预览构建产物
+npm run dev           # 本地开发 http://localhost:4321
+npm run fetch         # 单独拉取内容流
+npm run build         # fetch + 构建（产出 dist/）
+npm run build:offline # 跳过 fetch 直接构建
+npm run preview       # 预览构建产物
 ```
+
+> 内容流源中 VOA / BBC 的域名在中国大陆网络被 DNS 污染，本机抓取会自动回退上次缓存（首次为空态），不影响构建；GitHub Actions 的美国 runner 可正常拉取。本机调试可尝试 Node ≥24 的 `NODE_USE_ENV_PROXY=1 HTTPS_PROXY=... npm run fetch` 走代理。
 
 ## 结构
 

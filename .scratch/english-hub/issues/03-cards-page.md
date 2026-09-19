@@ -13,3 +13,7 @@ Status: ready-for-agent
 - 页脚：非商业声明 + 调研文档链接 + 来源署名
 
 验收：`npm run build` 后 dist/index.html 含 32 张卡片、8 个分类区块；截图目检布局无破版。
+
+## Comments
+
+- 2026-09-19 完成（commit f9a7464）：dist 校验 32 卡 / 8 区块；无头 Chrome 整页截图目检通过（favicon、徽章、三行截断、响应式网格均正常）。favicon 兜底逻辑：onerror 换 faviconFallback，再失败隐藏。

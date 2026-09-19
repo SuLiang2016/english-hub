@@ -11,3 +11,7 @@ Status: ready-for-agent
 - 分类归属按调研 §4.1（Cambridge 归词典与查词，发音专区写进 notes）
 
 验收：编译通过；数量与分类断言通过（8 分类 32 卡）。
+
+## Comments
+
+- 2026-09-19 完成（commit 8ee0cef）：32 站 × 8 分类录入，计数断言通过（6/2/2/6/4/4/4/4）；5 个反爬站点（Collins/Grammarly/Quizlet/italki/Cambly）配 Google s2 兜底。

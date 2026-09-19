@@ -12,3 +12,7 @@ Status: ready-for-agent
 - streams.json 为空/缺源时显示「暂无内容」空态，不破版
 
 验收：dist/index.html 含 4 源条目链接与 VOA 摘要；空态可渲染。
+
+## Comments
+
+- 2026-09-19 完成（commit 592235b）：4 源块渲染，LibriVox 5 条真实条目 + 3 个空态，署名与逐源更新时间展示；截图目检通过。streams.json 为空源时显示「暂无内容」不破版。
