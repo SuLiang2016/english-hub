@@ -1,6 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// site/base 待部署票（.scratch/english-hub/issues/07）建仓后按
-// https://<user>.github.io + /<repo> 填写
-export default defineConfig({});
+// GitHub Pages 项目站：https://suliang2016.github.io/english-hub/
+export default defineConfig({
+  site: 'https://suliang2016.github.io',
+  base: '/english-hub',
+});
+
